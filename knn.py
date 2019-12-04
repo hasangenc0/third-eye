@@ -4,6 +4,7 @@ import math
 import operator
 from decimal import Decimal
 
+
 class KNClassifier:
 
     def __init__(self):
@@ -58,6 +59,16 @@ class KNClassifier:
                         self.testSet[c].append(self.get_value_for_data(value))
                     else:
                         self.testSet[c].append(value)
+
+    def load_data_for_predict_as_list(self, data):
+        test_data = []
+        for i, value in enumerate(data):
+            if i != self.label - 1:
+                test_data.append(self.get_value_for_data(value))
+            else:
+                test_data.append(value)
+        self.trainingSet = self.dataSet
+        self.testSet.append(test_data)
 
     @staticmethod
     def get_value_for_data(value):

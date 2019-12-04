@@ -1,2 +1,2 @@
-Movie ID,Movie Name,IMDB Rating,Biography,Drama,Thriller,Comedy,Crime,Mystery,History,Label
-8,Ex Machina,7.7,0,1,0,0,0,1,0,0
+director_name,num_critic_for_reviews,duration,director_facebook_likes,actor_3_facebook_likes,actor_2_name,actor_1_facebook_likes,gross,genres,actor_1_name,movie_title,num_voted_users,cast_total_facebook_likes,actor_3_name,facenumber_in_poster,plot_keywords,num_user_for_reviews,language,country,budget,title_year,actor_2_facebook_likes,imdb_score,aspect_ratio,movie_facebook_likes
+Marc Webb,599,153,464,963,Andrew Garfield,15000,262030663,Action|Adventure|Fantasy,Emma Stone,The Amazing Spider-Man ,451803,28489,Chris Zylka,0,lizard|outcast|spider|spider man|teenager,1225,English,USA,230000000,2012,10000,7.0,2.35,56000

@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/knn-algoritması.iml" filepath="$PROJECT_DIR$/knn-algoritması.iml" />
+      <module fileurl="file://$PROJECT_DIR$/knn/knn.iml" filepath="$PROJECT_DIR$/knn/knn.iml" />
+      <module fileurl="file://$PROJECT_DIR$/knn-app.iml" filepath="$PROJECT_DIR$/knn-app.iml" />
     </modules>
   </component>
 </project>

@@ -27,15 +27,6 @@ def adult_data_knn_predict():
 
 def imdb_data_knn_predict():
     knn = KNClassifier()
-    knn.load_dataset('data/imdb.csv', label=3, titles=True)
-    knn.load_data_for_predict('data/unpredicted_imdb.csv', titles=True)
-    predictions = knn.predict(k=3)
-    for x in predictions:
-        print('> predicted=' + repr(x[0]), '> actual=' + repr(x[1]))
-
-
-def imdb_predict():
-    knn = KNClassifier()
     knn.load_dataset('data/IMDB-Movie-Data.csv', label=10, titles=True)
     knn.load_data_for_predict('data/IMDB-Movie-Data-unpredicted.csv', titles=True)
     predictions = knn.predict(k=3)
@@ -43,5 +34,19 @@ def imdb_predict():
         print("Predicted: {0:.2f}, Actual: {1:.2f}".format(x[0], x[1]))
 
 
+def imdb_predict():
+    knn = KNClassifier()
+    knn.load_dataset('data/movie_metadata.csv', label=23, titles=True)
+    knn.load_data_for_predict('data/unpredicted_imdb.csv', titles=True)
+    predictions = knn.predict(k=3)
+    for x in predictions:
+        print("Predicted: {0:.2f}, Actual: {1:.2f}".format(x[0], x[1]))
+
+
 if __name__ == "__main__":
-    imdb_predict()
+    import pandas as pd
+    f = pd.read_csv("data/cars.csv")
+    keep_col = ['manufacturer_name','model_name','transmission','color','odometer_value','year_produced','engine_fuel','engine_has_gas','engine_capacity','body_type','has_warranty','drivetrain','price_usd','is_exchangeable']
+    new_f = f[keep_col]
+    new_f.to_csv("data/cars.csv", index=False)
+

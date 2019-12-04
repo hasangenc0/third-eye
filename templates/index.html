@@ -3,55 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-    <title>Predict Car Prices</title>
+    <title>Car Price Prediction</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
-    <script src="{{ url_for('static', filename='app.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor.js') }}"></script>
+    <script src="{{ url_for('static', filename='app.js') }}" defer></script>
 </head>
 <body>
-<form class="my-form">
+
+<div class="result hidden">
     <div class="container">
-        <h1>Get in touch!</h1>
+        <h1>Your car's price calculated!</h1>
+        <p id="prediction" style="color: green;"></p>
+        <div class="grid grid-3">
+            <div></div>
+            <div></div>
+            <div>
+                <button class="btn-grid send-button" id="go-back" type="button">
+                    <span class="front">GO BACK</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<form class="my-form" action="{{ url_for('predict') }}" method="post">
+    <div class="container">
+        <h1>Calculate the value of your car!</h1>
         <ul>
             <li>
-                <select>
-                    <option selected disabled>-- Please choose an option --</option>
-                    <option>Request Quote</option>
-                    <option>Send Resume</option>
-                    <option>Other</option>
-                </select>
-            </li>
-            <li>
                 <div class="grid grid-2">
-                    <input type="text" placeholder="Name" required>
-                    <input type="text" placeholder="Surname" required>
+                    <input type="text" name="manufacturer_name" placeholder="Brand" required>
+                    <input type="text" name="model_name" placeholder="Model" required>
                 </div>
             </li>
             <li>
                 <div class="grid grid-2">
-                    <input type="email" placeholder="Email" required>
-                    <input type="tel" placeholder="Phone">
+                    <select name="transmission">
+                        <option selected disabled>Transmission Fuel</option>
+                        <option value="mechanical">Mechanical</option>
+                        <option value="automatic">Automatic</option>
+                    </select>
+                    <input type="text" name="color" placeholder="Color" required>
                 </div>
             </li>
             <li>
-                <textarea placeholder="Message"></textarea>
+                <div class="grid grid-2">
+                    <input type="text" name="odometer_value" placeholder="Odometer Value" required>
+                    <input type="text" name="year_produced" placeholder="Year Produced" required>
+                </div>
             </li>
             <li>
-                <input type="checkbox" id="terms">
-                <label for="terms">I have read and agreed with <a href="">the terms and conditions.</a></label>
+                <div class="grid grid-2">
+                    <select name="engine_fuel">
+                        <option selected disabled>Engine Fuel</option>
+                        <option value="gasoline">Gasoline</option>
+                        <option value="gas">Gas</option>
+                        <option value="diesel">Diesel</option>
+                        <option value="hybrid-diesel">Hybrid</option>
+                    </select>
+                    <select name="engine_has_gas">
+                        <option selected disabled>Engine Has Gas ?</option>
+                        <option value="True">Yes</option>
+                        <option value="Fasle">No</option>
+                    </select>
+                </div>
+            </li>
+            <li>
+                <div class="grid grid-2">
+                    <input type="text" name="engine_capacity" placeholder="Engine Capacity" required>
+                    <select name="body_type">
+                        <option selected disabled>Body Type</option>
+                        <option value="sedan">sedan</option>
+                        <option value="hatchback">hatchback</option>
+                        <option value="suv">suv</option>
+                        <option value="liftback">liftback</option>
+                        <option value="van">van</option>
+                        <option value="minivan">minivan</option>
+                        <option value="universal">universal</option>
+                    </select>
+                </div>
+            </li>
+
+            <li>
+                <div class="grid grid-2">
+                    <select name="has_warranty">
+                        <option selected disabled>Has Warranty ?</option>
+                        <option value="True">Yes</option>
+                        <option value="False">No</option>
+                    </select>
+                    <select name="drivetrain">
+                        <option selected disabled>Drivetrain</option>
+                        <option value="Front">Front</option>
+                        <option value="Rear">Rear</option>
+                        <option value="All">All</option>
+                    </select>
+                </div>
+            </li>
+            <li>
+                <input type="text" name="is_exchangeable" id="is_exchangeable" value="False" hidden>
+                <input type="checkbox" id="is_exchangeable_input" value="False">
+                <label for="is_exchangeable_input">There is exchange option</label>
             </li>
             <li>
                 <div class="grid grid-3">
                     <div class="required-msg">REQUIRED FIELDS</div>
-                    <button class="btn-grid" type="submit" disabled>
-            <span class="back">
-              <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/email-icon.svg" alt="">
-            </span>
+                    <button class="btn-grid send-button" type="submit">
+                        <span class="back">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill:#afafaf;"><path d="M19 9.062s-5.188-.333-7 1.938c2-4.896 7-5.938 7-5.938v-2l5 4-5 4.019v-2.019zm-18.974 14.938h23.947l-11.973-11.607-11.974 11.607zm1.673-14l10.291-7.488 3.053 2.218c.712-.459 1.391-.805 1.953-1.054l-5.006-3.637-11.99 8.725v12.476l7.352-7.127-5.653-4.113zm15.753 4.892l6.548 6.348v-11.612l-6.548 5.264z"/></svg>
+                        </span>
                         <span class="front">SUBMIT</span>
                     </button>
-                    <button class="btn-grid" type="reset" disabled>
-            <span class="back">
-              <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/eraser-icon.svg" alt="">
-            </span>
+                    <button class="btn-grid" type="reset">
+                        <span class="back">
+                        <svg width="24" height="24" style="fill:#afafaf;" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M5.662 23l-5.369-5.365c-.195-.195-.293-.45-.293-.707 0-.256.098-.512.293-.707l14.929-14.928c.195-.194.451-.293.707-.293.255 0 .512.099.707.293l7.071 7.073c.196.195.293.451.293.708 0 .256-.097.511-.293.707l-11.216 11.219h5.514v2h-12.343zm3.657-2l-5.486-5.486-1.419 1.414 4.076 4.072h2.829zm.456-11.429l-4.528 4.528 5.658 5.659 4.527-4.53-5.657-5.657z"/></svg>
+                        </span>
                         <span class="front">RESET</span>
                     </button>
                 </div>
@@ -64,6 +129,5 @@
         <small>Made with <span>❤</span></small>
     </div>
 </footer>
-
 </body>
 </html>
